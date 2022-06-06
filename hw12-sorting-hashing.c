@@ -93,17 +93,17 @@ int main()
 
 		case 'e': case 'E':
 			printf("Your Key = ");
-			scanf("%d", &key);
-			printArray(hashtable);
-			index = search(hashtable, key);
-			printf("key = %d, index = %d,  hashtable[%d] = %d\n", key, index, index, hashtable[index]);
+			scanf("%d", &key); //키값 입력 받음
+			printArray(hashtable);// 정렬 후 출력
+			index = search(hashtable, key); // 입력 받은 키값 과 같은 인덱스 반환 받음
+			printf("key = %d, index = %d,  hashtable[%d] = %d\n", key, index, index, hashtable[index]); //출력
 			break;
 
 		case 'p': case 'P':
-			printArray(array);
+			printArray(array); // 배열 출력
 			break;
 		default:
-			printf("\n       >>>>>   Concentration!!   <<<<<     \n");
+			printf("\n       >>>>>   Concentration!!   <<<<<     \n");//잘못입력에 대한 오류 처리
 			break;
 		}
 
@@ -112,13 +112,13 @@ int main()
 	return 1; //리턴 1
 }
 
-int initialize(int** a)
+int initialize(int** a) // 초기화 함수
 {
-	int *temp = NULL;
+	int *temp = NULL; //정수형 포인터 temp 선언
 
 	/* array가 NULL인 경우 메모리 할당 */
 	if(*a == NULL) {
-		temp = (int*)malloc(sizeof(int) * MAX_ARRAY_SIZE);
+		temp = (int*)malloc(sizeof(int) * MAX_ARRAY_SIZE); // 동적할당
 		*a = temp;  /* 할당된 메모리의 주소를 복사 --> main에서 배열을 control 할수 있도록 함*/
 	} else
 		temp = *a;
@@ -130,10 +130,10 @@ int initialize(int** a)
 	return 0;
 }
 
-int freeArray(int *a)
+int freeArray(int *a) //동적할당 해제
 {
-	if(a != NULL)
-		free(a);
+	if(a != NULL) // a이 널이 될때 까지 
+		free(a); //동적할당 해제
 	return 0;
 }
 
@@ -154,105 +154,105 @@ void printArray(int *a) //출력하는 함수
 
 int selectionSort(int *a) //선택 정렬 함수
 {
-	int min;
-	int minindex;
-	int i, j;
+	int min; //정수형 min 선언
+	int minindex; //정수형 minindex 선언
+	int i, j; //정수형 i, j 선언
 
 	printf("Selection Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a); //
+	printArray(a); // 정렬 하기 전 배열 출력
 
-	for (i = 0; i < MAX_ARRAY_SIZE; i++)
+	for (i = 0; i < MAX_ARRAY_SIZE; i++) // MAX_ARRAY_SIZE 만큼 반복
 	{
-		minindex = i;
-		min = a[i];
-		for(j = i+1; j < MAX_ARRAY_SIZE; j++)
+		minindex = i;  //minindex 에 i값 대입
+		min = a[i]; // min에 i 번째 a배열 값 대입
+		for(j = i+1; j < MAX_ARRAY_SIZE; j++) //MAX_ARRAY_SIZE+1 만큼 반복
 		{
-			if (min > a[j])
+			if (min > a[j]) //min > a[j] 일때
 			{
-				min = a[j];
-				minindex = j;
+				min = a[j]; //min에 a[j] 대입
+				minindex = j; //minindex에 j 대입
 			}
 		}
-		a[minindex] = a[i];
-		a[i] = min;
+		a[minindex] = a[i]; //a[minindex]에 a[i] 대입
+		a[i] = min; //a[i] 에 min 대입
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a); // 정렬 후 배열 출력
 	return 0;
 }
 
-int insertionSort(int *a)
+int insertionSort(int *a) //삽입 정렬
 {
-	int i, j, t;
+	int i, j, t; //정수형 i, j, t 선언
 
 	printf("Insertion Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a); // 정렬 하기 전 배열 출력
 
-	for(i = 1; i < MAX_ARRAY_SIZE; i++)
+	for(i = 1; i < MAX_ARRAY_SIZE; i++) // 반복문
 	{
-		t = a[i];
-		j = i;
-		while (a[j-1] > t && j > 0)
+		t = a[i]; //t에 a[i]
+		j = i; //j 에 i
+		while (a[j-1] > t && j > 0) // while문 a[j-1] > t 이고 j > 0 일때
 		{
 			a[j] = a[j-1];
-			j--;
+			j--; //j -1
 		}
-		a[j] = t;
+		a[j] = t; //a[j] 에 t
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a); // 정렬 후 배열 출력
 
 	return 0;
 }
 
-int bubbleSort(int *a)
+int bubbleSort(int *a) //버블 정렬
 {
-	int i, j, t;
+	int i, j, t; //정수형 i, j, t 선언
 
 	printf("Bubble Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a); // 정렬 하기 전 배열 출력
 
-	for(i = 0; i < MAX_ARRAY_SIZE; i++)
+	for(i = 0; i < MAX_ARRAY_SIZE; i++) // 반복문
 	{
-		for (j = 0; j < MAX_ARRAY_SIZE; j++)
+		for (j = 0; j < MAX_ARRAY_SIZE; j++) // 반복문
 		{
-			if (a[j-1] > a[j])
+			if (a[j-1] > a[j]) // 조건문 a[j-1] > a[j] 일때
 			{
-				t = a[j-1];
-				a[j-1] = a[j];
-				a[j] = t;
+				t = a[j-1]; //t = a[j-1]
+				a[j-1] = a[j]; //a[j-1] = a[j]
+				a[j] = t; //a[j] = t
 			}
 		}
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a); // 정렬 후 배열 출력
 
 	return 0;
 }
 
-int shellSort(int *a)
+int shellSort(int *a) // 셸 정렬
 {
-	int i, j, k, h, v;
+	int i, j, k, h, v; //정수형 i, j, k, h, v 선언
 
 	printf("Shell Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a); // 정렬 하기 전 배열 출력
 
-	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)
+	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2) // 반복문
 	{
-		for (i = 0; i < h; i++)
+		for (i = 0; i < h; i++) // 반복문
 		{
-			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)
+			for(j = i + h; j < MAX_ARRAY_SIZE; j += h) // 반복문
 			{
 				v = a[j];
 				k = j;
@@ -266,12 +266,12 @@ int shellSort(int *a)
 		}
 	}
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a); // 정렬 후 배열 출력
 
 	return 0;
 }
 
-int quickSort(int *a, int n)
+int quickSort(int *a, int n) //퀵 정렬
 {
 	int v, t;
 	int i, j;
@@ -304,8 +304,8 @@ int quickSort(int *a, int n)
 	return 0;
 }
 
-int hashCode(int key) {
-   return key % MAX_HASH_TABLE_SIZE;
+int hashCode(int key) { 
+   return key % MAX_HASH_TABLE_SIZE; /* hash code generator, key % MAX_HASH_TABLE_SIZE */
 }
 
 int hashing(int *a, int **ht)
