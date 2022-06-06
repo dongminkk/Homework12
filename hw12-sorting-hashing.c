@@ -254,14 +254,14 @@ int shellSort(int *a) // 셸 정렬
 		{
 			for(j = i + h; j < MAX_ARRAY_SIZE; j += h) // 반복문
 			{
-				v = a[j];
-				k = j;
-				while (k > h-1 && a[k-h] > v)
+				v = a[j]; //v = a[j]
+				k = j; // k = j
+				while (k > h-1 && a[k-h] > v) // 반복문 k > h-1 && a[k-h] > v 일때
 				{
-					a[k] = a[k-h];
-					k -= h;
+					a[k] = a[k-h]; // a[k] = a[k-h]
+					k -= h; //  k -= h
 				}
-				a[k] = v;
+				a[k] = v; // a[k] = v
 			}
 		}
 	}
@@ -273,16 +273,16 @@ int shellSort(int *a) // 셸 정렬
 
 int quickSort(int *a, int n) //퀵 정렬
 {
-	int v, t;
-	int i, j;
+	int v, t; //정수형 v, t 선언
+	int i, j; //정수형 i, j 선언
 
-	if (n > 1)
+	if (n > 1) // 조건문 n > 1 일때
 	{
 		v = a[n-1];
 		i = -1;
 		j = n - 1;
 
-		while(1)
+		while(1) // 반복문
 		{
 			while(a[++i] < v);
 			while(a[--j] > v);
@@ -308,13 +308,13 @@ int hashCode(int key) {
    return key % MAX_HASH_TABLE_SIZE; /* hash code generator, key % MAX_HASH_TABLE_SIZE */
 }
 
-int hashing(int *a, int **ht)
+int hashing(int *a, int **ht) //해싱
 {
-	int *hashtable = NULL;
+	int *hashtable = NULL; //정수형 포인터 hashtable 선언
 
 	/* hash table이 NULL인 경우 메모리 할당 */
-	if(*ht == NULL) {
-		hashtable = (int*)malloc(sizeof(int) * MAX_ARRAY_SIZE);
+	if(*ht == NULL) { //조건문 *ht == NULL 일때
+		hashtable = (int*)malloc(sizeof(int) * MAX_ARRAY_SIZE); // 동적할당
 		*ht = hashtable;  /* 할당된 메모리의 주소를 복사 --> main에서 배열을 control 할수 있도록 함*/
 	} else {
 		hashtable = *ht;	/* hash table이 NULL이 아닌경우, table 재활용, reset to -1 */
@@ -359,18 +359,18 @@ int hashing(int *a, int **ht)
 	return 0;
 }
 
-int search(int *ht, int key)
+int search(int *ht, int key) /* hash table에서 key를 찾아 hash table의 index return */
 {
-	int index = hashCode(key);
+	int index = hashCode(key); // 정수 형 index 선언후 hashCode(key) 대입
 
-	if(ht[index] == key)
-		return index;
+	if(ht[index] == key) // 조건문 ht[index] == key 일때
+		return index; // 해당 인덱스 리턴
 
-	while(ht[++index] != key)
+	while(ht[++index] != key) // 반복문 ht[++index] != key 일때 맞을 때 까지 반복하여 찾음
 	{
 		index = index % MAX_HASH_TABLE_SIZE;
 	}
-	return index;
+	return index; // 리턴 index
 }
 
 
